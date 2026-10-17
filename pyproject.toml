@@ -1,0 +1,16 @@
+[project]
+name = "adaptive-llm-gateway"
+version = "0.0.0"
+description = "Experimental LLM gateway and coding task evaluation harness"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[dependency-groups]
+transport-spike = [
+    "litellm==1.103.0",
+]
+
