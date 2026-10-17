@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "description": "M0 transport cases use in-memory HTTP fixtures; agent and worker fixtures follow in M1.",
+  "description": "M0 transport cases use in-memory HTTP fixtures. M1 adds a scripted mock gateway and disposable bug-fix workspace with independent verification.",
   "cases": [
     {"id": "text_success", "category": "provider", "mode": "non_streaming", "expected": "text response with finish_reason=stop and usage"},
     {"id": "tool_call", "category": "provider", "mode": "non_streaming", "expected": "function name, arguments string, and call ID preserved"},
