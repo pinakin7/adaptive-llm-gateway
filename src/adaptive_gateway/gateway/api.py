@@ -120,5 +120,3 @@ def create_app(config: GatewayConfig, provider: MockProvider | None = None, *, k
 def app_from_environment() -> FastAPI:
     path = Path(os.environ.get("GATEWAY_CONFIG", "configs/offline.json"))
     return create_app(parse_gateway_config(json.loads(path.read_text())))
-
-

@@ -69,4 +69,3 @@ class GatewayTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(response.status_code, 502)
         self.assertEqual(response.json()["error"]["code"], "mock_failure")
         self.assertEqual(response.headers["x-request-id"], response.json()["error"]["request_id"])
-
