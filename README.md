@@ -10,6 +10,8 @@ An experimental LLM gateway and coding-task harness for comparing model-routing 
 
 Requires Python 3.12 and `uv`. The full M1 demo also requires a running Docker daemon (Colima works on macOS). The worker uses a pinned Python 3.12 Alpine image and does not receive a provider key or network access.
 
+GitHub Actions runs the offline tests and Docker integration on pull requests and pushes to `main`. The Docker workflow uploads the generated episode and patch as a workflow artifact. Neither workflow requires a provider key.
+
 ```sh
 uv python install 3.12
 UV_CACHE_DIR=.uv-cache uv sync --locked

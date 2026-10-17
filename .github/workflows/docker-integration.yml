@@ -1,0 +1,41 @@
+name: Docker integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  worker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: latest-known
+          python-version: "3.12"
+          enable-cache: false
+      - name: Install locked dependencies
+        run: uv sync --locked
+      - name: Check Docker daemon
+        run: docker info --format '{{.ServerVersion}}'
+      - name: Pull pinned worker image
+        run: docker pull python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4
+      - name: Test worker boundaries and verifier
+        run: RUN_DOCKER_INTEGRATION=1 PYTHONPATH=src uv run --offline python -m unittest discover -s tests -p 'test_m1_docker_integration.py' -q
+      - name: Produce offline episode
+        run: PYTHONPATH=src uv run --offline python -m adaptive_gateway.eval.runner --output artifacts/bugfix
+      - name: Upload episode artifacts
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: offline-bugfix-episode
+          path: artifacts/bugfix/
+          if-no-files-found: warn
