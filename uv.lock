@@ -6,6 +6,9 @@ requires-python = ">=3.12, <3.14"
 name = "adaptive-llm-gateway"
 version = "0.0.0"
 source = { virtual = "." }
+dependencies = [
+    { name = "httpx" },
+]
 
 [package.dev-dependencies]
 transport-spike = [
@@ -13,6 +16,7 @@ transport-spike = [
 ]
 
 [package.metadata]
+requires-dist = [{ name = "httpx", specifier = "==0.28.1" }]
 
 [package.metadata.requires-dev]
 transport-spike = [{ name = "litellm", specifier = "==1.103.0" }]
