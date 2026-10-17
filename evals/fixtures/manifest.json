@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "description": "M0 offline contract cases; scripted provider behavior is implemented in M1.",
+  "cases": [
+    {"id": "text_success", "category": "provider", "mode": "non_streaming", "expected": "text response with finish_reason=stop and usage"},
+    {"id": "tool_call", "category": "provider", "mode": "non_streaming", "expected": "function name, arguments string, and call ID preserved"},
+    {"id": "tool_fragments", "category": "provider", "mode": "streaming", "expected": "fragments combine into one complete call before execution"},
+    {"id": "stream_disconnect", "category": "reliability", "mode": "streaming", "expected": "upstream cancellation and unresolved usage recorded"},
+    {"id": "transient_before_content", "category": "reliability", "mode": "streaming", "expected": "bounded retry is possible within one deadline"},
+    {"id": "failure_after_content", "category": "reliability", "mode": "streaming", "expected": "stream terminates without model splice or transparent retry"},
+    {"id": "missing_usage", "category": "accounting", "mode": "non_streaming", "expected": "usage remains unknown; no zero-cost settlement"},
+    {"id": "denied_alias", "category": "identity", "mode": "non_streaming", "expected": "policy denial before provider dispatch"},
+    {"id": "unsupported_parameter", "category": "request", "mode": "non_streaming", "expected": "explicit invalid_request_error with parameter path"},
+    {"id": "budget_exhausted", "category": "accounting", "mode": "non_streaming", "expected": "no dispatch when conservative reservation cannot fit"},
+    {"id": "failed_agent_test", "category": "agent", "mode": "non_streaming", "expected": "new agent step and recorded escalation reason"},
+    {"id": "protected_path", "category": "worker", "mode": "non_streaming", "expected": "path escape rejected and no host write"}
+  ]
+}
+
