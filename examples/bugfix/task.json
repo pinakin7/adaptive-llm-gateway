@@ -1,0 +1,8 @@
+{
+  "id": "bugfix-addition",
+  "prompt": "Fix the addition bug in calculator.py and run the tests.",
+  "max_steps": 6,
+  "deadline_seconds": 90,
+  "test_command": ["python", "-m", "unittest", "discover", "-s", "tests", "-q"],
+  "verifier_command": ["python", "-m", "unittest", "discover", "-s", "/verifier", "-q"]
+}
